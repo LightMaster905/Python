@@ -16,7 +16,7 @@ bot.remove_command('help')
 
 botversion = ("0.4.0")
 
-token = open("token.txt", "r").read()
+token = open("NjE0NTE2MzAyMTg2NTQ1MTcy.XWDktA.7vVcn32JJpvhqQD4SjCh_6tPmz0")
 
 @bot.command()
 async def about(ctx):
