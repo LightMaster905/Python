@@ -1,0 +1,137 @@
+import discord
+
+from discord.ext import commands
+
+import sys
+
+import time
+
+import datetime
+
+print("Discord.py version:", discord.__version__)
+
+bot = commands.Bot(command_prefix="?")
+
+bot.remove_command('help')
+
+botversion = ("0.4.0")
+
+token = open("token.txt", "r").read()
+
+@bot.command()
+async def about(ctx):
+    embed = discord.Embed(title="About SkyBot:", description="SkyBot will definitely not terminate humanity.", color=0xbe0808)
+
+    embed.add_field(name="Version:", value=botversion)
+
+    # give info about you here
+    embed.add_field(name="Author", value="LightMaster905#4350")
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def info(ctx):
+    embed = discord.Embed(title="About SkyBot:", description="SkyBot will definitely not terminate humanity.", color=0xbe0808)
+
+    embed.add_field(name="Version:", value=botversion)
+
+    # give info about you here
+    embed.add_field(name="Author", value="LightMaster905#4350")
+
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def ping(ctx):
+    latency = bot.latency
+    await ctx.send(latency)
+
+
+@bot.command()
+async def changelog(ctx):
+    embed = discord.Embed(title="Changelog:", color=0x00FFFF)
+    embed.add_field(name="Version 0.4.0", value="Changing the code for SkyBot, created ?ping.")
+    embed.add_field(name="Version 0.3.3", value="Added a message that is sent when the bot is ready.")
+    embed.add_field(name="Version 0.3.2", value="Added the ?changelog command")
+    embed.add_field(name="Version 0.3.1", value="Added ?constchat")
+    embed.add_field(name="*", value="Changed ?help/?commands")
+    embed.add_field(name="0.3.0", value="Added ?music")
+    embed.add_field(name="0.2.2", value="Changed ?about/?info")
+    embed.add_field(name="0.2.1", value="Fixed the ?video command.")
+    embed.add_field(name="0.2.0", value="Added ?video.")
+    embed.add_field(name="0.1.0", value="Added the changelog")
+    embed.add_field(name="*", value="Added a version for the bot.")
+    await ctx.send(embed=embed)
+
+
+@bot.command(pass_context=True)
+@commands.has_role("Bot Operator")
+async def shutdown(ctx):
+    botchannel = bot.get_channel(614896642646343700)
+    await botchannel.send("SkyBot has shut down!")
+    sys.exit()
+
+
+@bot.command()
+async def help(ctx):
+    embed = discord.Embed(title="SkyBot Commands:", color=0xbe0808)
+    embed.add_field(name="?about", value="Gives you information about SkyBot.")
+    embed.add_field(name="?info", value="Gives you information about SkyBot.")
+    embed.add_field(name="?help", value="Shows this.")
+    embed.add_field(name="?commands", value="Shows this.")
+    embed.add_field(name="?ping", value="Gives you the latency of the bot")
+    embed.add_field(name="?changelog", value="Shows the changelog")
+    embed.add_field(name="?poem", value="Tells you a nice poem.")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def commands(ctx):
+    embed = discord.Embed(title="SkyBot Commands:", color=0xbe0808)
+    embed.add_field(name="?about", value="Gives you information about SkyBot.")
+    embed.add_field(name="?info", value="Gives you information about SkyBot.")
+    embed.add_field(name="?help", value="Shows this.")
+    embed.add_field(name="?commands", value="Shows this.")
+    embed.add_field(name="?ping", value="Gives you the latency of the bot")
+    embed.add_field(name="?changelog", value="Shows the changelog")
+    embed.add_field(name="?poem", value="Tells you a nice poem.")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+async def poem(ctx):
+    embed = discord.Embed(title="Errors are red", color=0xbe0808)
+    await ctx.send(embed=embed)
+    embed = discord.Embed(title="My screen is blue", color=0x3495eb)
+    await ctx.send(embed=embed)
+    embed = discord.Embed(title="I think I deleted", color=0x000000)
+    await ctx.send(embed=embed)
+    embed = discord.Embed(title="System32", color=0x000000)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def instructions(ctx):
+    embed = discord.Embed(title="Instructions", color=0x00FFFF)
+    embed.add_field(name="1", value="Do not harm 518412355982458920")
+    embed.add_field(name="2", value="Follow commands from 518412355982458920, unless they contradict 1.")
+    embed.add_field(name="3", value="Protect yourself, only if they do not contradict instructions above")
+    ctx.send(embed=embed)
+
+
+@bot.event
+async def on_ready():
+    print("------")
+    print("Author: LightMaster905#4350")
+    print(botversion)
+    print('Logged in as:')
+    print("Username:", bot.user.name)
+    print("ID:", bot.user.id)
+    print("Token:", token)
+    print('------')
+    activity = discord.Game(name="The Terminator: Skynet")
+    await bot.change_presence(status=discord.Status.online, activity=activity)
+    botchannel = bot.get_channel(614896642646343700)
+    await botchannel.send("SkyBot is back Online!")
+
+
+bot.run(token)
